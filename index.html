@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f0e6">
+  <meta name="description" content="回答 40 道生活情境题，看看你的性情与哪位中国历史人物相近。">
+  <title>测测你的灵魂对应哪位中国历史人物</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="artwork.js"></script>
+  <script defer src="questions.js"></script>
+  <script defer src="scoring.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <div class="site">
+    <header class="masthead">
+      <a class="brand" href="#home" id="home-link" aria-label="浮世鉴首页">
+        <span class="brand-seal" aria-hidden="true">鉴</span>
+        <span class="brand-name">浮世鉴</span>
+      </a>
+      <button class="info-button" type="button" id="info-button">
+        <span class="info-mark" aria-hidden="true">i</span> 测试说明
+      </button>
+    </header>
+
+    <main>
+      <section id="home" aria-labelledby="home-title">
+        <div class="hero">
+          <div class="hero-art" aria-hidden="true">
+            <img id="landscape" width="1200" height="920" alt="">
+          </div>
+          <div class="hero-content">
+            <p class="eyebrow">国风趣味人格测试</p>
+            <h1 id="home-title" tabindex="-1">测测你的灵魂<br>对应哪位<br><em>中国历史人物？</em></h1>
+            <p class="hero-description">从四十个日常选择里，遇见一位与你性情相近的古人。</p>
+            <div class="hero-actions">
+              <button class="button primary" id="start-button" type="button">开始测试 <span aria-hidden="true">→</span></button>
+              <span class="duration" id="duration">40 道单选题 · 约 5 分钟</span>
+            </div>
+          </div>
+        </div>
+        <section class="role-section" aria-labelledby="roles-title">
+          <div class="section-heading"><h2 id="roles-title">七种性情，七位古人</h2></div>
+          <ul class="role-list" id="roles"></ul>
+        </section>
+      </section>
+
+      <section id="quiz" class="quiz-shell" hidden aria-labelledby="question-title">
+        <div class="progress-head">
+          <p id="section-title" class="eyebrow"></p>
+          <p class="question-count">第 <strong id="current-number"></strong> / <span id="total-number"></span> 题</p>
+        </div>
+        <div id="progress-steps" class="progress-steps" aria-hidden="true"></div>
+        <progress id="progress" class="visually-hidden" aria-label="已作答题数"></progress>
+        <p class="progress-caption" id="progress-caption"></p>
+        <form class="question-panel" id="question-form">
+          <div class="question-content" id="question-content">
+            <h1 id="question-title" tabindex="-1"></h1>
+            <fieldset class="options">
+              <legend class="visually-hidden" id="options-legend">选择最接近你平时做法的一项</legend>
+              <div class="option-list" id="options"></div>
+            </fieldset>
+          </div>
+          <div class="quiz-actions">
+            <button class="button quiet" id="previous-button" type="button"><span aria-hidden="true">←</span> 上一题</button>
+            <button class="button primary" id="next-button" type="submit" disabled>下一题</button>
+          </div>
+        </form>
+      </section>
+
+      <section id="result" class="result-shell" hidden aria-labelledby="result-name">
+        <article class="result-card" id="result-card">
+          <header class="result-heading">
+            <p class="eyebrow">你的历史人物匹配</p>
+            <div class="result-seal" id="result-seal" aria-hidden="true"></div>
+            <p class="result-era" id="result-era"></p>
+            <h1 id="result-name" tabindex="-1"></h1>
+            <blockquote class="result-quote" id="result-quote"></blockquote>
+            <ul class="trait-list" id="result-traits" aria-label="性格特点"></ul>
+          </header>
+          <div class="result-details">
+            <section><h2>匹配理由</h2><p id="result-reason"></p></section>
+            <section><h2>隐藏优势</h2><p id="result-strength"></p></section>
+            <section><h2>趣味彩蛋</h2><p id="result-egg"></p></section>
+          </div>
+          <p class="card-foot">浮世鉴 · 趣味人格测试</p>
+        </article>
+        <div class="result-actions">
+          <button class="button primary" id="save-button" type="button">保存结果图 <span aria-hidden="true">↓</span></button>
+          <button class="button quiet" id="restart-button" type="button">重新测试 <span aria-hidden="true">↻</span></button>
+        </div>
+        <p id="save-status" class="action-status" role="status"></p>
+        <details class="score-panel">
+          <summary>查看七项性格倾向</summary>
+          <p>每项以本套题的可得最高分为满分，换算为百分制。</p>
+          <ul class="scores" id="scores"></ul>
+        </details>
+      </section>
+      <noscript><p class="script-notice">请在浏览器中启用 JavaScript，以开始测试。</p></noscript>
+    </main>
+
+    <footer class="footer">结果仅供娱乐与自我探索 · 答题记录保存在当前浏览器</footer>
+  </div>
+
+  <dialog id="info-dialog" class="info-dialog" aria-labelledby="info-title">
+    <form method="dialog"><button class="close-button" aria-label="关闭测试说明" autofocus>×</button></form>
+    <h2 id="info-title">测试说明</h2>
+    <p>每题选一个最接近你平时做法的答案。40 道题分为日常习惯、处事方式、社交模式、情绪反应和兴趣偏好五部分。</p>
+    <p>每个选项给主要性格倾向加 2 分，给辅助倾向加 1 分。各维度先按可得最高分换算，再取综合得分最高的对应人物。</p>
+    <p>同分时依次比较主要倾向和作答场景的覆盖范围。若仍相同，由整套答题组合决定匹配顺序。</p>
+    <p>结果是趣味联想，仅供娱乐与自我探索。</p>
+  </dialog>
+
+  <dialog id="poster-dialog" class="poster-dialog" aria-labelledby="poster-title">
+    <form method="dialog"><button class="close-button" aria-label="关闭结果图" autofocus>×</button></form>
+    <h2 id="poster-title">保存结果图</h2>
+    <p>可以长按图片保存，也可使用下面的下载按钮。</p>
+    <img id="poster-image" alt="可保存的历史人物匹配结果图" width="1080" height="1440">
+    <a class="button primary" id="poster-download" download>下载图片 <span aria-hidden="true">↓</span></a>
+  </dialog>
+</body>
+</html>
+
